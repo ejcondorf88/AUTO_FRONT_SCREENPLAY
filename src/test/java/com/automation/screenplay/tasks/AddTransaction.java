@@ -6,10 +6,12 @@ import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
 import net.serenitybdd.screenplay.actions.JavaScriptClick;
+import net.serenitybdd.screenplay.actions.Evaluate;
+import net.serenitybdd.screenplay.waits.WaitUntil;
 import net.serenitybdd.annotations.Step;
-import org.openqa.selenium.Keys;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isNotVisible;
 
 public class AddTransaction implements Task {
 
@@ -39,13 +41,17 @@ public class AddTransaction implements Task {
                 Click.on(TransactionsUI.selectByLabel("Tipo")),
                 Click.on(TransactionsUI.optionWithText(searchText)),
                 Click.on(TransactionsUI.selectByLabel("Categ")),
-                Click.on(TransactionsUI.optionWithText("Otros")), // Defaulting to Otros for simplicity
+                Click.on(TransactionsUI.optionWithText("Otros")),
                 Enter.theValue(description).into(TransactionsUI.INPUT_DESCRIPTION),
                 Enter.theValue(amount).into(TransactionsUI.INPUT_AMOUNT),
-                // Since date input is tricky in some frameworks, we can use the same JS logic if needed, 
-                // but for now we try Enter.
-                Enter.theValue(date).into(TransactionsUI.INPUT_DATE),
-                Click.on(TransactionsUI.BUTTON_SUBMIT)
+                Evaluate.javascript(
+                    "arguments[0].value = arguments[1]; " +
+                    "arguments[0].dispatchEvent(new Event('input', {bubbles: true})); " +
+                    "arguments[0].dispatchEvent(new Event('change', {bubbles: true}));", 
+                    TransactionsUI.INPUT_DATE, date
+                ),
+                JavaScriptClick.on(TransactionsUI.BUTTON_SUBMIT),
+                WaitUntil.the(TransactionsUI.BUTTON_SUBMIT, isNotVisible()).forNoMoreThan(10).seconds()
         );
     }
 }
