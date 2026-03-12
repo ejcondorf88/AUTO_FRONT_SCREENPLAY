@@ -10,6 +10,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.And;
 
+import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -19,7 +20,7 @@ public class FinancialTransactionStepDefinitions {
 
     @Given("the visitor registers with name {string}, email {string}, and password {string}")
     public void registerVisitor(String name, String email, String password) {
-        theActorInTheSpotlight().wasAbleTo(
+        theActorCalled(name).wasAbleTo(
             Register.withData(name, email, password)
         );
     }
