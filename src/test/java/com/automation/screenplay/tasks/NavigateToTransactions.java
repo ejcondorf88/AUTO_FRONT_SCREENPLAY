@@ -30,6 +30,8 @@ public class NavigateToTransactions implements Task {
                          Click.on(DashboardUI.BUTTON_SIDEBAR_TRIGGER)
                      ),
                 WaitUntil.the(DashboardUI.LINK_TRANSACTIONS, isVisible()),
+                // JS click required: the sidebar open/close animation briefly overlaps
+                // the link, causing a standard Click.on() to throw ElementClickInterceptedException.
                 JavaScriptClick.on(DashboardUI.LINK_TRANSACTIONS)
         );
     }

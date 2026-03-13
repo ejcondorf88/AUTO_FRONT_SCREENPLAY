@@ -1,15 +1,21 @@
 package com.automation.runners;
 
-import io.cucumber.junit.CucumberOptions;
-import net.serenitybdd.cucumber.CucumberWithSerenity;
-import org.junit.runner.RunWith;
+import org.junit.platform.suite.api.ConfigurationParameter;
+import org.junit.platform.suite.api.IncludeEngines;
+import org.junit.platform.suite.api.Suite;
 
-@RunWith(CucumberWithSerenity.class)
-@CucumberOptions(
-        plugin = {"pretty"},
-        features = "src/test/resources/features",
-        glue = "com.automation.steps.definitions",
-        snippets = CucumberOptions.SnippetType.CAMELCASE
-)
+/**
+ * JUnit 5 test suite entry point for Serenity + Cucumber.
+ *
+ * Using the JUnit Platform Suite API (@Suite) instead of the legacy
+ * JUnit 4 @RunWith(CucumberWithSerenity) runner ensures that the
+ * parallel execution settings in junit-platform.properties are
+ * honoured by the test engine.
+ */
+@Suite
+@IncludeEngines("cucumber")
+@ConfigurationParameter(key = "cucumber.glue",   value = "com.automation.steps.definitions")
+@ConfigurationParameter(key = "cucumber.features", value = "src/test/resources/features")
+@ConfigurationParameter(key = "cucumber.plugin", value = "pretty,net.serenitybdd.cucumber.core.plugin.SerenityReporter")
 public class CucumberTestSuite {
 }

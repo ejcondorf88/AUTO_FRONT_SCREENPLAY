@@ -3,18 +3,20 @@ package com.automation.steps.definitions;
 import com.automation.screenplay.questions.TransactionList;
 import com.automation.screenplay.tasks.AddTransaction;
 import com.automation.screenplay.tasks.Login;
+import com.automation.screenplay.tasks.Navigate;
 import com.automation.screenplay.tasks.NavigateToTransactions;
 import com.automation.screenplay.tasks.Register;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
+import com.automation.utils.Constants;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
-import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasItem;
 
 public class FinancialTransactionStepDefinitions {
 
@@ -28,6 +30,7 @@ public class FinancialTransactionStepDefinitions {
     @When("the user logs in with email {string} and password {string}")
     public void loginUser(String email, String password) {
         theActorInTheSpotlight().attemptsTo(
+            Navigate.to(Constants.LOGIN_URL),
             Login.withCredentials(email, password)
         );
     }
@@ -50,7 +53,9 @@ public class FinancialTransactionStepDefinitions {
     public void verifyTransactionInList(String description, Integer amount) {
         theActorInTheSpotlight().should(
             seeThat(TransactionList.descriptions(),
-                hasItem(containsString(description)))
+                hasItem(containsString(description))),
+            seeThat(TransactionList.amounts(),
+                hasItem(containsString(String.valueOf(amount))))
         );
     }
 }
