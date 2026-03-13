@@ -14,8 +14,6 @@ public class TransactionsUI {
             .located(By.xpath("//button[@type='submit' and contains(., 'Crear')]"));
     
     public static final Target TABLE_ROWS = Target.the("transaction table rows").located(By.cssSelector("table tbody tr"));
-
-    // Custom selects (dynamic)
     public static Target selectByLabel(String label) {
         return Target.the("select for " + label)
                 .located(By.xpath("//label[contains(.,'" + label + "')]/following-sibling::button | //label[contains(.,'" + label + "')]/..//button"));

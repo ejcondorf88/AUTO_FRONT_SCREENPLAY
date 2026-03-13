@@ -30,7 +30,7 @@ public class Register implements Task {
     @Step("{0} registers a new user with name #name and email #email")
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Open.url("http://localhost:3000/register"),
+                Open.url(com.automation.utils.Constants.REGISTER_URL),
                 Enter.theValue(name).into(RegisterUI.INPUT_DISPLAY_NAME),
                 Enter.theValue(email).into(RegisterUI.INPUT_EMAIL),
                 Enter.theValue(password).into(RegisterUI.INPUT_PASSWORD),
