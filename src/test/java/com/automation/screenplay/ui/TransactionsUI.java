@@ -14,13 +14,32 @@ public class TransactionsUI {
             .located(By.xpath("//button[@type='submit' and contains(., 'Crear')]"));
     
     public static final Target TABLE_ROWS = Target.the("transaction table rows").located(By.cssSelector("table tbody tr"));
+
+    // Dropdown trigger button next to the label
     public static Target selectByLabel(String label) {
         return Target.the("select for " + label)
-                .located(By.xpath("//label[contains(.,'" + label + "')]/following-sibling::button | //label[contains(.,'" + label + "')]/..//button"));
+                .located(By.xpath(
+                    "//label[normalize-space()='" + label + "']/following-sibling::*//button" +
+                    " | //label[contains(normalize-space(),'" + label + "')]/..//button[@role='combobox']" +
+                    " | //label[contains(normalize-space(),'" + label + "')]/following-sibling::button"
+                ));
     }
 
+    // Option inside an open dropdown/popover
     public static Target optionWithText(String text) {
         return Target.the("option " + text)
-                .located(By.xpath("//div[@role='option' or @role='menuitem' or @role='listbox']//*[contains(text(), '" + text + "')] | //div[@role='option' or @role='menuitem' or @role='listbox'][contains(., '" + text + "')]"));
+                .located(By.xpath(
+                    "//*[@role='option'][normalize-space()='" + text + "']" +
+                    " | //*[@role='option'][.//*[normalize-space()='" + text + "']]" +
+                    " | //*[@role='menuitem'][normalize-space()='" + text + "']"
+                ));
     }
+
+    // Specific dropdown for "Tipo"
+    public static final Target SELECT_TIPO = Target.the("tipo dropdown")
+            .located(By.xpath("//label[contains(.,'Tipo')]/following-sibling::button | //label[contains(.,'Tipo')]/..//button[@role='combobox']"));
+
+    // Specific dropdown for "Categoría"
+    public static final Target SELECT_CATEGORIA = Target.the("categoria dropdown")
+            .located(By.xpath("//label[contains(.,'Categ')]/following-sibling::button | //label[contains(.,'Categ')]/..//button[@role='combobox']"));
 }
