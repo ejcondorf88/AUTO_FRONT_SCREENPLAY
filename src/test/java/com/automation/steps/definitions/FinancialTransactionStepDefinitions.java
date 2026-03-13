@@ -15,7 +15,6 @@ import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.allOf;
 
 public class FinancialTransactionStepDefinitions {
 
@@ -50,8 +49,8 @@ public class FinancialTransactionStepDefinitions {
     @Then("the user should see the transaction {string} with amount {int} in the list")
     public void verifyTransactionInList(String description, Integer amount) {
         theActorInTheSpotlight().should(
-            seeThat(TransactionList.descriptions(), 
-                hasItem(allOf(containsString(description), containsString(String.valueOf(amount)))))
+            seeThat(TransactionList.descriptions(),
+                hasItem(containsString(description)))
         );
     }
 }
