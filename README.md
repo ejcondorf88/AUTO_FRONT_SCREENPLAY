@@ -5,12 +5,12 @@ Este repositorio contiene la automatización de pruebas de interfaz de usuario (
 ## 🚀 Misión del Proyecto
 Este proyecto forma parte del **Taller Semana 5: Maestría en Automatización**. El objetivo es demostrar la implementación del patrón Screenplay para crear pruebas robustas, escalables y fáciles de mantener, aplicando el principio de responsabilidad única en cada componente.
 
-## 🛠️ Stack Tecnológico
-*   **Lenguaje**: Java 17+
-*   **Patrón de Diseño**: Screenplay (Actors, Tasks, Actions, Questions, UI)
-*   **Framework**: Serenity BDD + Cucumber
-*   **Gestión de Dependencias**: Gradle
-*   **Navegador**: Google Chrome (Configurado vía `serenity.conf`)
+*   **Stack Tecnológico**:
+    *   **Lenguaje**: Java 17+
+    *   **Patrón de Diseño**: Screenplay (Actors, Tasks, Actions, Questions, UI)
+    *   **Framework**: Serenity BDD + Cucumber + JUnit 5 (JUnit Platform)
+    *   **Gestión de Dependencias**: Gradle
+    *   **Navegador**: Google Chrome (Configurado vía `serenity.conf`)
 
 ## 📁 Estructura del Proyecto
 ```text
@@ -45,10 +45,11 @@ Para ejecutar la suite de pruebas completa y generar los reportes de Serenity, u
 Al finalizar los tests, puedes visualizar el reporte detallado (con capturas de pantalla de cada acción) en:
 `target/site/serenity/index.html`
 
-## ✅ Criterios de Calidad Aplicados
-*   **Responsabilidad Única (SRP)**: Cada tarea se enfoca en una sola acción de negocio.
-*   **Código Limpio**: Nomenclatura semántica y ausencia de código comentado.
-*   **Separación de Preocupaciones**: Los localizadores están aislados de la lógica de las tareas.
+*   **Criterios de Calidad Aplicados**:
+    *   **Responsabilidad Única (SRP)**: Cada tarea se enfoca en una sola acción de negocio.
+    *   **Código Limpio**: Nomenclatura semántica y ausencia de código comentado.
+    *   **Validación Dual**: Las verificaciones aseguran la integridad de múltiples campos (ej: descripción y monto) en un solo paso.
+    *   **Separación de Preocupaciones**: Los localizadores están aislados de la lógica de las tareas.
 
 ## 👨‍💻 Autor
 *   **Estudiante**: Elian / Luis (Maestría en Automatización)
